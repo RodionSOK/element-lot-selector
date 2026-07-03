@@ -1,0 +1,7 @@
+@reference "tailwindcss";
+.booking-form {
+  @apply space-y-3;
+}
+.booking-form__error {
+  @apply text-red-600 text-sm;
+}

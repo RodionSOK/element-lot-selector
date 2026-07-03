@@ -1,0 +1,37 @@
+@reference "tailwindcss";
+.lot-detail-page {
+  @apply max-w-2xl mx-auto px-4 py-8 space-y-6;
+}
+.lot-detail-page__error {
+  @apply max-w-2xl mx-auto px-4 py-8 text-red-600;
+}
+.lot-detail-page__hint {
+  @apply max-w-2xl mx-auto px-4 py-8 text-neutral-500;
+}
+.lot-detail-page__project {
+  @apply text-sm text-neutral-500;
+}
+.lot-detail-page__title {
+  @apply text-2xl font-semibold mt-1;
+}
+.lot-detail-page__address {
+  @apply text-neutral-500;
+}
+.lot-detail-page__price {
+  @apply mt-2 text-xl font-semibold;
+}
+.lot-detail-page__price-sqm {
+  @apply text-sm text-neutral-500;
+}
+.lot-detail-page__status {
+  @apply mt-2 text-sm;
+}
+.lot-detail-page__section {
+  @apply border-t border-neutral-200 pt-6;
+}
+.lot-detail-page__section-title {
+  @apply font-medium mb-3;
+}
+.lot-detail-page__success {
+  @apply text-green-700 text-sm;
+}

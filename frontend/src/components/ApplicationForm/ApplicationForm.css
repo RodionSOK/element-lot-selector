@@ -1,0 +1,7 @@
+@reference "tailwindcss";
+.application-form {
+  @apply space-y-3;
+}
+.application-form__error {
+  @apply text-red-600 text-sm;
+}

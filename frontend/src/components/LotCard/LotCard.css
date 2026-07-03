@@ -1,0 +1,25 @@
+@reference "tailwindcss";
+.lot-card {
+  @apply block rounded-lg border border-neutral-200 p-4 transition-colors hover:border-neutral-400;
+}
+.lot-card__header {
+  @apply flex items-center justify-between;
+}
+.lot-card__project {
+  @apply text-sm text-neutral-500;
+}
+.lot-card__title {
+  @apply mt-2 text-lg font-medium;
+}
+.lot-card__address {
+  @apply text-sm text-neutral-500;
+}
+.lot-card__price {
+  @apply mt-3 flex items-baseline gap-2;
+}
+.lot-card__price-main {
+  @apply text-xl font-semibold;
+}
+.lot-card__price-sqm {
+  @apply text-sm text-neutral-500;
+}

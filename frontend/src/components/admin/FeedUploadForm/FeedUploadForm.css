@@ -1,0 +1,13 @@
+@reference "tailwindcss";
+.feed-upload-form {
+  @apply flex items-center gap-3 flex-wrap mb-6;
+}
+.feed-upload-form__input {
+  @apply text-sm;
+}
+.feed-upload-form__message {
+  @apply text-sm text-green-700 w-full;
+}
+.feed-upload-form__error {
+  @apply text-sm text-red-600 w-full;
+}

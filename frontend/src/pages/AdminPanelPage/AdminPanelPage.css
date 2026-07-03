@@ -1,0 +1,19 @@
+@reference "tailwindcss";
+.admin-panel-page {
+  @apply max-w-5xl mx-auto px-4 py-8;
+}
+.admin-panel-page__header {
+  @apply flex items-center justify-between mb-6;
+}
+.admin-panel-page__title {
+  @apply text-2xl font-semibold;
+}
+.admin-panel-page__tabs {
+  @apply flex gap-2 border-b border-neutral-200 mb-6;
+}
+.admin-panel-page__tab {
+  @apply px-3 py-2 text-sm text-neutral-500 border-b-2 border-transparent hover:text-neutral-900;
+}
+.admin-panel-page__tab--active {
+  @apply text-neutral-900 border-neutral-900;
+}

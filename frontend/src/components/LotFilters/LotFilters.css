@@ -1,0 +1,4 @@
+@reference "tailwindcss";
+.lot-filters {
+  @apply flex flex-wrap gap-3 mb-6;
+}

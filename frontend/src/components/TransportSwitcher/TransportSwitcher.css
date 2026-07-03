@@ -1,0 +1,10 @@
+@reference "tailwindcss";
+.transport-switcher {
+  @apply inline-flex rounded-lg border border-neutral-300 overflow-hidden text-sm;
+}
+.transport-switcher__option {
+  @apply px-3 py-1.5 bg-white text-neutral-600 transition-colors hover:bg-neutral-100;
+}
+.transport-switcher__option--active {
+  @apply bg-neutral-900 text-white hover:bg-neutral-900;
+}

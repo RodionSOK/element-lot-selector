@@ -1,0 +1,19 @@
+@reference "tailwindcss";
+.catalog-page {
+  @apply max-w-5xl mx-auto px-4 py-8;
+}
+.catalog-page__header {
+  @apply flex items-center justify-between mb-6;
+}
+.catalog-page__title {
+  @apply text-2xl font-semibold;
+}
+.catalog-page__hint {
+  @apply text-neutral-500;
+}
+.catalog-page__error {
+  @apply text-red-600;
+}
+.catalog-page__grid {
+  @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4;
+}

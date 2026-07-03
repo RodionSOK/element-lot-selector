@@ -1,0 +1,7 @@
+@reference "tailwindcss";
+.pagination {
+  @apply flex items-center gap-2 mt-6;
+}
+.pagination__label {
+  @apply text-sm text-neutral-500;
+}

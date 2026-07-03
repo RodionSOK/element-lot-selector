@@ -1,0 +1,13 @@
+@reference "tailwindcss";
+.admin-login-page {
+  @apply min-h-screen flex items-center justify-center px-4;
+}
+.admin-login-page__form {
+  @apply w-full max-w-sm space-y-3 border border-neutral-200 rounded-lg p-6;
+}
+.admin-login-page__title {
+  @apply text-xl font-semibold mb-2;
+}
+.admin-login-page__error {
+  @apply text-red-600 text-sm;
+}
