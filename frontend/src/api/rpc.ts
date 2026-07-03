@@ -52,8 +52,11 @@ export const rpcClient: ApiClient = {
     return call('admin.feeds.upload', { filename: file.name, content_base64 }, token)
   },
 
+  uploadFeedFromUrl: (url, token) => call('admin.feeds.upload_from_url', { url }, token),
+
   listFeeds: (token) => call('admin.feeds.list', {}, token),
   activateFeed: (lotSetId, token) => call('admin.feeds.activate', { lot_set_id: lotSetId }, token),
   listBookings: (token, status) => call('admin.bookings.list', { status }, token),
   listApplications: (token, status) => call('admin.applications.list', { status }, token),
+  listProjects: () => call('lots.projects'),
 }

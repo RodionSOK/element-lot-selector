@@ -8,3 +8,6 @@ class ConflictError(Exception):
 
 class AuthenticationError(Exception):
     pass
+
+class FeedFetchError(Exception):
+    pass

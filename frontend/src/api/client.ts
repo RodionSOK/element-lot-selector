@@ -13,10 +13,12 @@ export interface ApiClient {
   createApplication(data: ApplicationCreate): Promise<Application>
   login(data: LoginRequest): Promise<TokenResponse>
   uploadFeed(file: File, token: string): Promise<FeedUploadResult>
+  uploadFeedFromUrl(url: string, token: string): Promise<FeedUploadResult>
   listFeeds(token: string): Promise<LotSet[]>
   activateFeed(lotSetId: number, token: string): Promise<LotSet>
   listBookings(token: string, status?: BookingStatus): Promise<Booking[]>
   listApplications(token: string, status?: ApplicationStatus): Promise<Application[]>
+  listProjects(): Promise<string[]>
 }
 
 export type Transport = 'rest' | 'rpc'

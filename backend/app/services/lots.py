@@ -91,3 +91,16 @@ async def activate_lot_set(session: AsyncSession, lot_set_id: int) -> LotSetRead
     await session.refresh(lot_set)
 
     return LotSetRead.model_validate(lot_set)
+
+async def list_project_names(session: AsyncSession) -> list[str]:
+    active_set_id = await _get_active_set_id(session)
+    if active_set_id is None:
+        return []
+
+    result = await session.execute(
+        select(Lot.project_name)
+        .where(Lot.set_id == active_set_id)
+        .distinct()
+        .order_by(Lot.project_name)
+    )
+    return list(result.scalars().all())

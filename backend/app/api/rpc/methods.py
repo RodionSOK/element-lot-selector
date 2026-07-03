@@ -12,7 +12,7 @@ from app.schemas.application import ApplicationCreate, ApplicationRead
 from app.schemas.auth import LoginRequest, TokenResponse
 from app.schemas.booking import BookingCreate, BookingRead
 from app.schemas.common import Page
-from app.schemas.lot import FeedUploadResult, LotListParams, LotRead, LotSetRead
+from app.schemas.lot import FeedUploadResult, LotListParams, LotRead, LotSetRead, FeedUploadUrlRequest
 from app.services import applications as applications_service
 from app.services import auth as auth_service
 from app.services import bookings as bookings_service
@@ -82,3 +82,18 @@ async def admin_applications_list(
     params: ApplicationListParams, ctx: RpcContext
 ) -> list[ApplicationRead]:
     return await applications_service.list_applications(ctx.session, params.status)
+
+@rpc_method("lots.projects")
+async def lots_projects(params: None, ctx: RpcContext) -> list[str]:
+    return await lots_service.list_project_names(ctx.session)
+
+@rpc_method("admin.feeds.upload_from_url", params_model=FeedUploadUrlRequest, requires_admin=True)
+async def admin_feeds_upload_from_url(
+    params: FeedUploadUrlRequest, ctx: RpcContext
+) -> FeedUploadResult:
+    lot_set, skipped_count = await feed_import_service.import_feed_from_url(
+        str(params.url), session=ctx.session
+    )
+    return FeedUploadResult(
+        lot_set=LotSetRead.model_validate(lot_set), skipped_count=skipped_count
+    )

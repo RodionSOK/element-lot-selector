@@ -4,12 +4,18 @@ import './Button.css'
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'primary' | 'secondary'
+  size?: 'sm' | 'md'
 }
 
-export function Button({ variant = 'primary', className, ...props }: ButtonProps) {
+export function Button({ variant = 'primary', size = 'md', className, ...props }: ButtonProps) {
   return (
     <button
-      className={cn('button', variant === 'secondary' ? 'button--secondary' : 'button--primary', className)}
+      className={cn(
+        'button',
+        variant === 'secondary' ? 'button--secondary' : 'button--primary',
+        size === 'sm' ? 'button--sm' : 'button--md',
+        className,
+      )}
       {...props}
     />
   )

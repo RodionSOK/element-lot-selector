@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useApi } from '../../../api/TransportContext'
 import { useAuth } from '../../../auth/AuthContext'
-import { Button } from '../../ui/Button/Button'
 import { Badge } from '../../ui/Badge/Badge'
 import type { LotSet } from '../../../types/lot'
 import './FeedList.css'
@@ -49,9 +48,13 @@ export function FeedList({ refreshKey }: Props) {
             <td>{feed.is_active ? <Badge tone="success">Активен</Badge> : <Badge>Неактивен</Badge>}</td>
             <td>
               {!feed.is_active && (
-                <Button variant="secondary" onClick={() => handleActivate(feed.id)}>
+                <button
+                  type="button"
+                  className="feed-list__activate"
+                  onClick={() => handleActivate(feed.id)}
+                >
                   Активировать
-                </Button>
+                </button>
               )}
             </td>
           </tr>

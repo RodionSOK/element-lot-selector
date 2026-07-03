@@ -6,21 +6,27 @@ import './LotFilters.css'
 interface Props {
   value: LotListParams
   onChange: (value: LotListParams) => void
+  projects: string[]
 }
 
-export function LotFilters({ value, onChange }: Props) {
+export function LotFilters({ value, onChange, projects }: Props) {
   function update(patch: Partial<LotListParams>) {
     onChange({ ...value, ...patch, page: 1 })
   }
 
   return (
     <div className="lot-filters">
-      <Input
-        type="text"
-        placeholder="ЖК"
+      <Select
         value={value.project_name ?? ''}
         onChange={(e) => update({ project_name: e.target.value || undefined })}
-      />
+      >
+        <option value="">Все ЖК</option>
+        {projects.map((project) => (
+          <option key={project} value={project}>
+            {project}
+          </option>
+        ))}
+      </Select>
       <Select
         value={value.rooms ?? ''}
         onChange={(e) => update({ rooms: e.target.value ? Number(e.target.value) : undefined })}
@@ -39,7 +45,6 @@ export function LotFilters({ value, onChange }: Props) {
         onChange={(e) =>
           update({ price_per_sqm_min: e.target.value ? Number(e.target.value) : undefined })
         }
-        className="w-36"
       />
       <Input
         type="number"
@@ -48,7 +53,6 @@ export function LotFilters({ value, onChange }: Props) {
         onChange={(e) =>
           update({ price_per_sqm_max: e.target.value ? Number(e.target.value) : undefined })
         }
-        className="w-36"
       />
       <Select
         value={value.status ?? ''}

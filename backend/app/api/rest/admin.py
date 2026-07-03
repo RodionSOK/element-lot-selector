@@ -11,7 +11,7 @@ from app.models.booking import BookingStatus
 from app.schemas.application import ApplicationRead
 from app.schemas.auth import LoginRequest, TokenResponse
 from app.schemas.booking import BookingRead
-from app.schemas.lot import FeedUploadResult, LotSetRead
+from app.schemas.lot import FeedUploadResult, LotSetRead, FeedUploadUrlRequest
 from app.services import applications as applications_service
 from app.services import auth as auth_service
 from app.services import bookings as bookings_service
@@ -77,3 +77,16 @@ async def list_applications_admin(
     status: ApplicationStatus | None = None,
 ) -> list[ApplicationRead]:
     return await applications_service.list_applications(session, status)
+
+@router.post("/feeds/from-url", response_model=FeedUploadResult, status_code=201)
+async def upload_feed_from_url(
+    payload: FeedUploadUrlRequest,
+    session: Annotated[AsyncSession, Depends(get_db)],
+    _admin: Annotated[str, Depends(get_current_admin)],
+) -> FeedUploadResult:
+    lot_set, skipped_count = await feed_import_service.import_feed_from_url(
+        str(payload.url), session=session
+    )
+    return FeedUploadResult(
+        lot_set=LotSetRead.model_validate(lot_set), skipped_count=skipped_count
+    )

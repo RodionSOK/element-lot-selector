@@ -10,7 +10,7 @@ from app.api.rpc.registry import RpcContext
 from app.config import Settings, get_settings
 from app.db import get_db
 from app.services.auth import decode_token
-from app.services.errors import AuthenticationError, ConflictError, NotFoundError
+from app.services.errors import AuthenticationError, ConflictError, FeedFetchError, NotFoundError
 
 logger = structlog.get_logger(__name__)
 
@@ -20,6 +20,7 @@ _ERROR_CODES: dict[type[Exception], int] = {
     NotFoundError: -32001,
     ConflictError: -32002,
     AuthenticationError: -32003,
+    FeedFetchError: -32602,
 }
 
 
@@ -70,7 +71,7 @@ async def rpc_endpoint(
 
     try:
         result = await spec.handler(params, ctx)
-    except (NotFoundError, ConflictError, AuthenticationError) as exc:
+    except (NotFoundError, ConflictError, AuthenticationError, FeedFetchError) as exc:
         return _error(request_id, _ERROR_CODES[type(exc)], str(exc))
     except Exception:
         logger.exception("rpc.internal_error", method=method_name)

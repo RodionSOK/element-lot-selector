@@ -11,7 +11,7 @@ from app.api.rpc import router as rpc_router
 from app.config import get_settings
 from app.db import engine
 from app.logging import configure_logging
-from app.services.errors import AuthenticationError, ConflictError, NotFoundError
+from app.services.errors import AuthenticationError, ConflictError, FeedFetchError, NotFoundError
 
 settings = get_settings()
 configure_logging(settings)
@@ -71,6 +71,9 @@ async def handle_authentication_error(
 ) -> JSONResponse:
     return JSONResponse(status_code=401, content={"detail": str(exc)})
 
+@app.exception_handler(FeedFetchError)
+async def handle_feed_fetch_error(request: Request, exc: FeedFetchError) -> JSONResponse:
+    return JSONResponse(status_code=400, content={"detail": str(exc)})
 
 @app.get("/health")
 async def health() -> dict[str, str]:

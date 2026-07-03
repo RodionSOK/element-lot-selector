@@ -1,3 +1,4 @@
+import httpx
 import xml.etree.ElementTree as ET
 from dataclasses import dataclass
 from decimal import Decimal, InvalidOperation
@@ -7,6 +8,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.models.lot import Lot, LotStatus
 from app.models.lot_set import LotSet
+from app.services.errors import FeedFetchError
 
 logger = structlog.get_logger(__name__)
 
@@ -117,3 +119,18 @@ async def import_feed(
     )
 
     return lot_set, parsed.skipped_count
+
+async def fetch_feed_from_url(url: str) -> bytes:
+    try:
+        async with httpx.AsyncClient(timeout=30.0) as client:
+            response = await client.get(url)
+            response.raise_for_status()
+            return response.content
+    except httpx.HTTPError as exc:
+        raise FeedFetchError(f"could not fetch feed from url: {exc}") from exc
+
+
+async def import_feed_from_url(url: str, *, session: AsyncSession) -> tuple[LotSet, int]:
+    content = await fetch_feed_from_url(url)
+    filename = url.rsplit("/", 1)[-1] or "feed.xml"
+    return await import_feed(content, filename=filename, session=session)

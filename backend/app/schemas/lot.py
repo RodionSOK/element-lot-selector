@@ -2,9 +2,10 @@ from datetime import datetime
 from decimal import Decimal
 from enum import Enum
 
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, ConfigDict, Field, HttpUrl
 
 from app.models.lot import LotStatus
+
 
 class LotRead(BaseModel):
     model_config = ConfigDict(from_attributes=True)
@@ -56,3 +57,6 @@ class LotSetRead(BaseModel):
 class FeedUploadResult(BaseModel):
     lot_set: LotSetRead
     skipped_count: int
+    
+class FeedUploadUrlRequest(BaseModel):
+    url: HttpUrl

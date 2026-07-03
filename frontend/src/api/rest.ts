@@ -37,6 +37,7 @@ function buildQuery<T extends object>(params: T): string {
 
 export const restClient: ApiClient = {
   listLots: (params) => request<Page<Lot>>(`/api/lots${buildQuery(params)}`),
+  listProjects: () => request<string[]>('/api/lots/projects'),
 
   getLot: (id) => request<Lot>(`/api/lots/${id}`),
 
@@ -75,6 +76,13 @@ export const restClient: ApiClient = {
 
     return response.json() as Promise<FeedUploadResult>
   },
+
+  uploadFeedFromUrl: (url, token) =>
+    request<FeedUploadResult>('/api/admin/feeds/from-url', {
+      method: 'POST',
+      headers: authHeaders(token),
+      body: JSON.stringify({ url }),
+    }),
 
   listFeeds: (token) => request<LotSet[]>('/api/admin/feeds', { headers: authHeaders(token) }),
 

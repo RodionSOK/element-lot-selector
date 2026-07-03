@@ -1,9 +1,8 @@
 import { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { useApi } from '../../api/TransportContext'
 import { BookingForm } from '../../components/BookingForm/BookingForm'
 import { ApplicationForm } from '../../components/ApplicationForm/ApplicationForm'
-import { Link } from '../../components/ui/Link/Link'
 import { formatArea, formatMoney, LOT_STATUS_LABELS } from '../../lib/format'
 import type { Lot } from '../../types/lot'
 import './LotDetailPage.css'
@@ -11,10 +10,12 @@ import './LotDetailPage.css'
 export function LotDetailPage() {
   const { id } = useParams<{ id: string }>()
   const { api } = useApi()
+  const navigate = useNavigate()
   const [lot, setLot] = useState<Lot | null>(null)
   const [error, setError] = useState<string | null>(null)
   const [bookingDone, setBookingDone] = useState(false)
   const [applicationDone, setApplicationDone] = useState(false)
+
 
   useEffect(() => {
     if (!id) return
@@ -26,7 +27,10 @@ export function LotDetailPage() {
 
   return (
     <div className="lot-detail-page">
-      <Link to="/">← Назад в каталог</Link>
+      <button onClick={() => navigate(-1)} className="lot-detail-page__back">
+         ← Назад в каталог
+      </button>
+
 
       <div>
         <span className="lot-detail-page__project">{lot.project_name}</span>
